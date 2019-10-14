@@ -45,18 +45,6 @@ class Detail extends React.Component {
       });
   }
 
-  showCommits() {
-    this.setState({ mode: "commits" });
-  }
-
-  showForks() {
-    this.setState({ mode: "forks" });
-  }
-
-  showPulls() {
-    this.setState({ mode: "pulls" });
-  }
-
   renderCommits() {
     return this.state.commits.map((commit, index) => {
       const author = commit.author ? commit.author.login : "Anonymous";
@@ -95,6 +83,10 @@ class Detail extends React.Component {
     });
   }
 
+  selectMode(event) {
+    this.setState({ mode: event.currentTarget.dataset.mode });
+  }
+
   render() {
     let content;
 
@@ -108,9 +100,15 @@ class Detail extends React.Component {
 
     return (
       <div>
-        <button onClick={this.showCommits.bind(this)}>Show Commits</button>
-        <button onClick={this.showForks.bind(this)}>Show Forks</button>
-        <button onClick={this.showPulls.bind(this)}>Show Pulls</button>
+        <button onClick={this.selectMode.bind(this)} data-mode="commits">
+          Show Commits
+        </button>
+        <button onClick={this.selectMode.bind(this)} data-mode="forks">
+          Show Forks
+        </button>
+        <button onClick={this.selectMode.bind(this)} data-mode="pulls">
+          Show Pulls
+        </button>
         {content}
       </div>
     );
